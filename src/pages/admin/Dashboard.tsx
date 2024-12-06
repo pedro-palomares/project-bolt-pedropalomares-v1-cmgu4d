@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../config/firebase"; // Asegúrate de que la ruta sea correcta
+import { auth, db } from "../config/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 // Define el tipo de automatización
@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
-          const userData = userDoc.data() as User; // Asegura el tipo correcto
+          const userData = userDoc.data() as User;
           setUser(userData);
           setAutomations(userData.automations || []);
         } else {
