@@ -14,9 +14,8 @@ const LoginWithGoogle = () => {
       alert("Error al iniciar sesión. Por favor, inténtalo de nuevo.");
     }
   };
-
   return (
-    <button onClick={handleLogin}>
+    <button type="button" onClick={handleLogin}>
       Iniciar sesión con Google
     </button>
   );
