@@ -14,29 +14,22 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h1>Inicia sesión</h1>
-      <button onClick={handleLogin} style={styles.button}>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <button
+        onClick={handleLogin}
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#4285F4",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          fontSize: "16px",
+        }}
+      >
         Iniciar sesión con Google
       </button>
     </div>
   );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    textAlign: "center",
-    marginTop: "50px",
-  },
-  button: {
-    padding: "10px 20px",
-    backgroundColor: "#4285F4",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
 };
 
 export default Login;

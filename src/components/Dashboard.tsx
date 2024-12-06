@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../config/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-// Define el tipo de automatización
 type Automation = {
   name: string;
   status: string;
   platform: string;
 };
 
-// Define el tipo de usuario
 type User = {
   name: string;
   email: string;
@@ -20,7 +18,6 @@ const Dashboard: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [automations, setAutomations] = useState<Automation[]>([]);
 
-  // Obtiene los datos del usuario
   useEffect(() => {
     const fetchUserData = async () => {
       const currentUser = auth.currentUser;
@@ -44,7 +41,6 @@ const Dashboard: React.FC = () => {
     fetchUserData();
   }, []);
 
-  // Añade una nueva automatización
   const addAutomation = async () => {
     if (!auth.currentUser) {
       console.error("El usuario no está autenticado.");
@@ -61,10 +57,8 @@ const Dashboard: React.FC = () => {
       const userDocRef = doc(db, "users", auth.currentUser.uid);
       const updatedAutomations = [...automations, newAutomation];
 
-      // Actualiza Firestore con la nueva lista de automatizaciones
       await updateDoc(userDocRef, { automations: updatedAutomations });
 
-      // Actualiza el estado local
       setAutomations(updatedAutomations);
     } catch (error) {
       console.error("Error al añadir una automatización:", error);
@@ -72,19 +66,29 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div style={styles.container}>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
       {user ? (
         <>
           <h1>Bienvenido, {user.name}</h1>
-          <h2>Tus Automatizaciones</h2>
           <ul>
             {automations.map((automation, index) => (
               <li key={index}>
-                <strong>{automation.name}</strong> - {automation.status}
+                {automation.name} - {automation.status}
               </li>
             ))}
           </ul>
-          <button onClick={addAutomation} style={styles.button}>
+          <button
+            onClick={addAutomation}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#4CAF50",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              fontSize: "16px",
+              marginTop: "20px",
+            }}
+          >
             Añadir Automatización
           </button>
         </>
@@ -93,24 +97,6 @@ const Dashboard: React.FC = () => {
       )}
     </div>
   );
-};
-
-// Estilos en línea
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    textAlign: "center",
-    marginTop: "50px",
-  },
-  button: {
-    padding: "10px 20px",
-    backgroundColor: "#4CAF50",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    fontSize: "16px",
-    cursor: "pointer",
-    marginTop: "20px",
-  },
 };
 
 export default Dashboard;
