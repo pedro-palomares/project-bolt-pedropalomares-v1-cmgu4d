@@ -1,37 +1,74 @@
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../firebase";
+import { auth, db } from "../config/firebase"; // Asegúrate de que la ruta sea correcta
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-const Dashboard = () => {
-  const [user, setUser] = useState(null);
-  const [automations, setAutomations] = useState([]);
+// Define el tipo de automatización
+type Automation = {
+  name: string;
+  status: string;
+  platform: string;
+};
 
+// Define el tipo de usuario
+type User = {
+  name: string;
+  email: string;
+  automations?: Automation[];
+};
+
+const Dashboard: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [automations, setAutomations] = useState<Automation[]>([]);
+
+  // Obtiene los datos del usuario
   useEffect(() => {
     const fetchUserData = async () => {
       const currentUser = auth.currentUser;
+
       if (currentUser) {
-        const userDoc = doc(db, "users", currentUser.uid);
-        const userData = await getDoc(userDoc);
-        setUser(userData.data());
-        setAutomations(userData.data()?.automations || []);
+        const userDocRef = doc(db, "users", currentUser.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data() as User; // Asegura el tipo correcto
+          setUser(userData);
+          setAutomations(userData.automations || []);
+        } else {
+          console.warn("No se encontraron datos para el usuario.");
+        }
+      } else {
+        console.warn("Usuario no autenticado.");
       }
     };
 
     fetchUserData();
   }, []);
 
+  // Añade una nueva automatización
   const addAutomation = async () => {
-    const newAutomation = {
+    if (!auth.currentUser) {
+      console.error("El usuario no está autenticado.");
+      return;
+    }
+
+    const newAutomation: Automation = {
       name: "Nueva Automatización",
       status: "inactive",
       platform: "Make",
     };
 
-    const userDoc = doc(db, "users", auth.currentUser.uid);
-    const updatedAutomations = [...automations, newAutomation];
+    try {
+      const userDocRef = doc(db, "users", auth.currentUser.uid);
+      const updatedAutomations = [...automations, newAutomation];
 
-    await updateDoc(userDoc, { automations: updatedAutomations });
-    setAutomations(updatedAutomations);
+      // Actualiza Firestore con la nueva lista de automatizaciones
+      await updateDoc(userDocRef, { automations: updatedAutomations });
+
+      // Actualiza el estado local
+      setAutomations(updatedAutomations);
+    } catch (error) {
+      console.error("Error al añadir una automatización:", error);
+    }
   };
 
   return (
@@ -43,7 +80,7 @@ const Dashboard = () => {
           <ul>
             {automations.map((automation, index) => (
               <li key={index}>
-                {automation.name} - {automation.status}
+                <strong>{automation.name}</strong> - {automation.status}
               </li>
             ))}
           </ul>
@@ -52,13 +89,14 @@ const Dashboard = () => {
           </button>
         </>
       ) : (
-        <p>Cargando...</p>
+        <p>Cargando datos del usuario...</p>
       )}
     </div>
   );
 };
 
-const styles = {
+// Estilos en línea
+const styles: { [key: string]: React.CSSProperties } = {
   container: {
     textAlign: "center",
     marginTop: "50px",
