@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.prose {
+  @apply max-w-none;
+}
+
+.prose img {
+  @apply rounded-lg;
+}
+
+.prose code {
+  @apply bg-dark-lighter px-1 py-0.5 rounded;
+}
+
+.prose pre {
+  @apply bg-dark-lighter p-4 rounded-lg;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary bg-dark-lighter p-4;
+}
+
+.prose a {
+  @apply text-primary hover:text-primary-light;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  @apply text-white font-bold;
+}
+
+.prose strong {
+  @apply text-white;
+}
+
+.prose ul li::before {
+  @apply text-primary;
+}
