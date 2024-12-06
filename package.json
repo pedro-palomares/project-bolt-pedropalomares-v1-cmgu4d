@@ -17,7 +17,6 @@
     "test:ci": "vitest run && playwright test"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.2.4",
     "@hookform/resolvers": "^3.3.4",
     "@sentry/react": "^7.107.0",
     "@tailwindcss/typography": "^0.5.10",
