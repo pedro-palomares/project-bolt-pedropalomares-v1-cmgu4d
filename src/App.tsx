@@ -3,15 +3,33 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase";
 import Navbar from "./components/Navbar";
-import Login from "./components/Login";
+// Importación de componentes
+import Login from "./components/Login.tsx"; // Especificamos la extensión .tsx
 import Dashboard from "./components/Dashboard";
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
 
 const App: React.FC = () => {
-  const [user, setUser] = useState(null);
+  // Se utiliza la interfaz 'User' para tipificar correctamente el estado 'user'.
+  const [user, setUser] = useState<null | User>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      // Se realiza una verificación para asegurar que currentUser es del tipo User o null antes de actualizar el estado.
+      if (currentUser === null) {
+        setUser(null);
+      } else if (currentUser) {
+        // Creamos un objeto User con los datos necesarios
+        const userData: User = {
+          id: currentUser.uid,
+          name: currentUser.displayName || '',
+          email: currentUser.email || ''
+        };
+        setUser(userData);
+      }
     });
 
     return () => unsubscribe();
