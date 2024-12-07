@@ -1,29 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
-import { auth } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { useAuth } from "../context/AuthContext";
 
 const PrivateRoute = ({ children }) => {
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { currentUser } = useAuth();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
-      setLoading(false);
-    });
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
 
-    // Limpia el listener al desmontar el componente
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) return <div>Cargando...</div>;
-
-  return isAuthenticated ? children : <Navigate to="/" />;
+  return children;
 };
 
 export default PrivateRoute; 
