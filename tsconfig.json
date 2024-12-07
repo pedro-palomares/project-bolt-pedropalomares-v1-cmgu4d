@@ -20,7 +20,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "composite": true, // Necesario para referencias
+    "declaration": true, // Genera archivos de declaración para bibliotecas
+    "emitDeclarationOnly": true // Emite solo las declaraciones, no el código compilado
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
