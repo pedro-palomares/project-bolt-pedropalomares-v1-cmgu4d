@@ -1,0 +1,40 @@
+import React, { PropsWithChildren } from 'react';
+import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Auth0Provider } from '@auth0/auth0-react';
+import { HelmetProvider } from 'react-helmet-async';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
+
+const auth0Config = {
+  domain: 'test.auth0.com',
+  clientId: 'test-client-id',
+  authorizationParams: {
+    redirect_uri: 'http://localhost:3000',
+    audience: 'test-audience',
+    scope: 'openid profile email'
+  }
+};
+
+export function renderWithProviders(ui: React.ReactElement) {
+  return render(
+    <HelmetProvider>
+      <Auth0Provider {...auth0Config}>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            {ui}
+          </BrowserRouter>
+        </QueryClientProvider>
+      </Auth0Provider>
+    </HelmetProvider>
+  );
+}
+
+export * from '@testing-library/react';
