@@ -2,13 +2,13 @@ import React from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../config/firebase";
 
-const Login: React.FC = () => {
+const Login = () => {
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       console.log("Usuario autenticado:", result.user);
-    } catch (error: unknown) {
+    } catch (error) {
       if (error instanceof Error) {
         console.error("Error al iniciar sesión:", error.message);
       } else {
