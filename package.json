@@ -41,11 +41,11 @@
     "react-hook-form": "^7.51.0",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.1",
     "react-scroll": "^1.9.0",
     "winston": "^3.11.0",
     "zod": "^3.22.4",
-    "zustand": "^4.5.2",
-    "react-scripts": "5.0.1"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.42.1",
