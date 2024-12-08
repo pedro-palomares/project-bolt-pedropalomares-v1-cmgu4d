@@ -6,7 +6,6 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
@@ -21,15 +20,15 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "composite": false, // Cambiado a false para evitar errores en proyectos no monorepo
-    "declaration": true, // Desactivado para proyectos que no publican bibliotecas
-    "emitDeclarationOnly": false // Desactivado para que compile el código normalmente
+    "composite": false,
+    "declaration": true,
+    "emitDeclarationOnly": false
   },
   "include": ["src"],
   "exclude": [
-    "node_modules", // Excluir dependencias externas
-    "dist", // Excluir archivos generados
-    "**/*.test.ts", // Excluir pruebas unitarias si no son necesarias en compilación
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx"
