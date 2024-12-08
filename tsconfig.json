@@ -21,10 +21,22 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "composite": true, // Necesario para referencias
-    "declaration": true, // Genera archivos de declaración para bibliotecas
-    "emitDeclarationOnly": true // Emite solo las declaraciones, no el código compilado
+    "composite": false, // Cambiado a false para evitar errores en proyectos no monorepo
+    "declaration": false, // Desactivado para proyectos que no publican bibliotecas
+    "emitDeclarationOnly": false // Desactivado para que compile el código normalmente
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": [
+    "node_modules", // Excluir dependencias externas
+    "dist", // Excluir archivos generados
+    "**/*.test.ts", // Excluir pruebas unitarias si no son necesarias en compilación
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
