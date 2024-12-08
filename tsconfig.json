@@ -9,7 +9,7 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
     "strict": true,
     "noUnusedLocals": true,
@@ -22,7 +22,7 @@
       "@/*": ["src/*"]
     },
     "composite": false, // Cambiado a false para evitar errores en proyectos no monorepo
-    "declaration": false, // Desactivado para proyectos que no publican bibliotecas
+    "declaration": true, // Desactivado para proyectos que no publican bibliotecas
     "emitDeclarationOnly": false // Desactivado para que compile el código normalmente
   },
   "include": ["src"],
