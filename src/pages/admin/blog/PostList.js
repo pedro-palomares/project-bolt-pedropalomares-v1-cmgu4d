@@ -1,0 +1,12 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { FileText, Edit, Trash2, Eye } from 'lucide-react';
+const PostList = ({ posts, isLoading }) => {
+    if (isLoading) {
+        return (_jsx("div", { className: "flex items-center justify-center min-h-[400px]", children: _jsx("div", { className: "animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary" }) }));
+    }
+    if (!posts || posts.length === 0) {
+        return (_jsxs("div", { className: "bg-dark-lighter p-8 rounded-lg border border-gray-800 text-center", children: [_jsx(FileText, { className: "h-12 w-12 text-gray-400 mx-auto mb-4" }), _jsx("h3", { className: "text-xl font-semibold text-white mb-2", children: "No hay art\u00EDculos" }), _jsx("p", { className: "text-gray-400", children: "Comienza creando tu primer art\u00EDculo o genera uno con IA." })] }));
+    }
+    return (_jsx("div", { className: "space-y-4", children: posts.map((post) => (_jsxs("div", { className: "bg-dark-lighter p-6 rounded-lg border border-gray-800 hover:border-gray-700 transition-colors", children: [_jsxs("div", { className: "flex items-center justify-between mb-4", children: [_jsx("h3", { className: "text-lg font-semibold text-white", children: post.title }), _jsxs("div", { className: "flex items-center space-x-2", children: [_jsx("button", { className: "p-2 text-gray-400 hover:text-white rounded-lg hover:bg-dark transition-colors", title: "Ver art\u00EDculo", children: _jsx(Eye, { className: "h-5 w-5" }) }), _jsx("button", { className: "p-2 text-gray-400 hover:text-white rounded-lg hover:bg-dark transition-colors", title: "Editar art\u00EDculo", children: _jsx(Edit, { className: "h-5 w-5" }) }), _jsx("button", { className: "p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-dark transition-colors", title: "Eliminar art\u00EDculo", children: _jsx(Trash2, { className: "h-5 w-5" }) })] })] }), _jsx("p", { className: "text-gray-400 mb-4", children: post.excerpt }), _jsxs("div", { className: "flex items-center justify-between text-sm", children: [_jsxs("div", { className: "flex items-center space-x-4 text-gray-400", children: [_jsx("span", { children: new Date(post.date).toLocaleDateString() }), _jsx("span", { children: post.readTime })] }), _jsx("span", { className: "px-3 py-1 bg-dark text-primary rounded-full text-sm border border-primary/20", children: post.category })] })] }, post.id))) }));
+};
+export default PostList;

@@ -1,0 +1,15 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Target, TrendingUp, Zap } from 'lucide-react';
+import CalendlyButton from './CalendlyButton';
+import { trackEvent } from '../lib/analytics';
+const Hero = () => {
+    const handleServicesClick = () => {
+        const servicesSection = document.querySelector('#services');
+        if (servicesSection) {
+            servicesSection.scrollIntoView({ behavior: 'smooth' });
+            trackEvent('Navigation', 'Click', 'Services Section');
+        }
+    };
+    return (_jsxs("div", { id: "home", className: "relative min-h-screen flex items-center", children: [_jsx("div", { className: "absolute inset-0 bg-gradient-to-b from-dark to-dark-lighter opacity-95" }), _jsx("div", { className: "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32", children: _jsxs("div", { className: "grid md:grid-cols-2 gap-12 items-center", children: [_jsxs("div", { className: "space-y-8", children: [_jsxs("h1", { className: "text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight", children: ["Impulsa tu Negocio con", ' ', _jsx("span", { className: "text-primary bg-primary/10 px-2 rounded", children: "Estrategias Digitales" })] }), _jsx("p", { className: "text-xl text-gray-300 leading-relaxed", children: "Combino m\u00E1s de 20 a\u00F1os de experiencia en ventas con las \u00FAltimas tecnolog\u00EDas para ayudarte a captar m\u00E1s clientes y escalar tu negocio de manera eficiente." }), _jsxs("div", { className: "flex flex-col sm:flex-row gap-4", children: [_jsx(CalendlyButton, {}), _jsx("button", { onClick: handleServicesClick, className: "btn-secondary hover:bg-white/5", children: "Conoce Mis Servicios" })] })] }), _jsxs("div", { className: "relative", children: [_jsx("div", { className: "absolute inset-0 bg-primary/20 rounded-2xl blur-3xl" }), _jsxs("div", { className: "relative grid grid-cols-2 gap-6", children: [_jsxs("div", { className: "space-y-6", children: [_jsxs("div", { className: "card p-6 backdrop-blur-sm bg-dark-lighter/90", children: [_jsx(Target, { className: "h-8 w-8 text-primary mb-4" }), _jsx("h3", { className: "font-semibold text-lg mb-2", children: "Captaci\u00F3n de Clientes" }), _jsx("p", { className: "text-gray-300", children: "Estrategias efectivas de ventas" })] }), _jsxs("div", { className: "card p-6 backdrop-blur-sm bg-dark-lighter/90 translate-x-4", children: [_jsx(Zap, { className: "h-8 w-8 text-primary mb-4" }), _jsx("h3", { className: "font-semibold text-lg mb-2", children: "Automatizaci\u00F3n" }), _jsx("p", { className: "text-gray-300", children: "Optimiza tus procesos de venta" })] })] }), _jsx("div", { className: "space-y-6 translate-y-12", children: _jsxs("div", { className: "card p-6 backdrop-blur-sm bg-dark-lighter/90", children: [_jsx(TrendingUp, { className: "h-8 w-8 text-primary mb-4" }), _jsx("h3", { className: "font-semibold text-lg mb-2", children: "Escalabilidad" }), _jsx("p", { className: "text-gray-300", children: "Crece tu negocio con IA" })] }) })] })] })] }) }), _jsx("div", { className: "absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent" })] }));
+};
+export default Hero;

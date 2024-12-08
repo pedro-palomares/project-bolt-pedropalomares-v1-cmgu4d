@@ -1,0 +1,15 @@
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { blogApi } from '../lib/api/blog';
+import SEO from '../components/SEO';
+const BlogCard = ({ post }) => (_jsxs("div", { className: "bg-dark-lighter rounded-xl shadow-lg overflow-hidden group border border-gray-800", children: [_jsxs("div", { className: "relative overflow-hidden", children: [_jsx("img", { src: post.image, alt: post.title, className: "w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-300" }), _jsx("div", { className: "absolute top-4 left-4", children: _jsx("span", { className: "px-3 py-1 bg-primary text-white rounded-full text-sm", children: post.category }) })] }), _jsxs("div", { className: "p-6", children: [_jsxs("div", { className: "flex items-center text-sm text-gray-400 mb-3 space-x-4", children: [_jsxs("span", { className: "flex items-center", children: [_jsx(Calendar, { className: "h-4 w-4 mr-1" }), new Date(post.createdAt).toLocaleDateString()] }), _jsxs("span", { className: "flex items-center", children: [_jsx(Clock, { className: "h-4 w-4 mr-1" }), post.readTime] })] }), _jsx("h3", { className: "text-xl font-semibold mb-2 text-white group-hover:text-primary transition-colors", children: post.title }), _jsx("p", { className: "text-gray-400 mb-4", children: post.excerpt }), _jsxs(Link, { to: `/blog/${post.slug}`, className: "inline-flex items-center text-primary hover:text-red-400 transition-colors", children: ["Leer m\u00E1s ", _jsx(ArrowRight, { className: "h-4 w-4 ml-1" })] })] })] }));
+const Blog = () => {
+    const { data: posts, isLoading } = useQuery({
+        queryKey: ['posts'],
+        queryFn: blogApi.getPosts
+    });
+    return (_jsxs(_Fragment, { children: [_jsx(SEO, { title: "Blog - Pedro Palomares Digital Coach", description: "Art\u00EDculos y recursos sobre ventas, tecnolog\u00EDa y transformaci\u00F3n digital" }), _jsx("section", { className: "section-padding bg-dark", children: _jsxs("div", { className: "max-w-7xl mx-auto container-padding", children: [_jsxs("div", { className: "text-center mb-16", children: [_jsx("h1", { className: "text-4xl md:text-5xl font-bold mb-4 text-white", children: "Blog" }), _jsx("p", { className: "text-xl text-gray-400 max-w-3xl mx-auto", children: "Art\u00EDculos y recursos sobre ventas, tecnolog\u00EDa y transformaci\u00F3n digital" })] }), isLoading ? (_jsx("div", { className: "flex items-center justify-center min-h-[400px]", children: _jsx("div", { className: "animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary" }) })) : !posts || posts.length === 0 ? (_jsx("div", { className: "text-center text-gray-400", children: "No hay art\u00EDculos publicados todav\u00EDa." })) : (_jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8", children: posts.map((post) => (_jsx(BlogCard, { post: post }, post.id))) }))] }) })] }));
+};
+export default Blog;

@@ -1,0 +1,2 @@
+declare const AutomationDashboard: () => import("react/jsx-runtime").JSX.Element;
+export default AutomationDashboard;

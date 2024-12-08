@@ -1,0 +1,50 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { ExternalLink, Brain, Target, MessageSquare } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { trackEvent } from '../lib/analytics';
+const ProjectCard = ({ project }) => (_jsxs("div", { className: "bg-dark-lighter rounded-xl shadow-lg overflow-hidden group border border-gray-800", children: [_jsxs("div", { className: "relative overflow-hidden", children: [_jsx("img", { src: project.image, alt: project.title, className: "w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-300" }), _jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end", children: project.demoUrl && (_jsx("div", { className: "p-4", children: _jsxs("a", { href: project.demoUrl, target: "_blank", rel: "noopener noreferrer", className: "inline-flex items-center text-white hover:text-primary", children: [_jsx(ExternalLink, { className: "h-5 w-5 mr-1" }), "Ver Caso de Estudio"] }) })) })] }), _jsxs("div", { className: "p-6", children: [_jsxs("div", { className: "flex items-center space-x-3 mb-4", children: [_jsx("div", { className: "p-2 bg-dark rounded-lg", children: _jsx(project.icon, { className: "h-6 w-6 text-primary" }) }), _jsx("h3", { className: "text-xl font-semibold text-white", children: project.title })] }), _jsx("p", { className: "text-gray-400 mb-4", children: project.description }), _jsx("div", { className: "space-y-2 mb-4", children: project.results.map((result, index) => (_jsxs("div", { className: "flex items-center text-gray-300", children: [_jsx("div", { className: "w-2 h-2 bg-primary rounded-full mr-2" }), result] }, index))) }), _jsx("div", { className: "flex flex-wrap gap-2", children: project.tags.map((tag, index) => (_jsx("span", { className: "px-3 py-1 bg-dark text-primary rounded-full text-sm border border-primary/20", children: tag }, index))) })] })] }));
+const Portfolio = () => {
+    const projects = [
+        {
+            title: "IA en Atención al Cliente",
+            description: "Implementación de un sistema de IA para automatizar y mejorar la atención al cliente en una empresa de retail.",
+            image: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&q=80&w=800",
+            tags: ["Inteligencia Artificial", "NLP", "Automatización"],
+            icon: Brain,
+            results: [
+                "Reducción del 30% en el tiempo promedio de respuesta",
+                "Mejora del 20% en la satisfacción del cliente según encuestas internas",
+                "Optimización de 80 horas mensuales en tareas repetitivas"
+            ]
+        },
+        {
+            title: "Estrategia de Ventas B2B",
+            description: "Desarrollo e implementación de una estrategia digital de ventas para una empresa de software.",
+            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+            tags: ["Ventas B2B", "CRM", "Lead Generation"],
+            icon: Target,
+            results: [
+                "Incremento del 25% en la conversión de leads en clientes",
+                "Aumento del 50% en consultas calificadas",
+                "ROI positivo en menos de 4 meses tras la implementación"
+            ]
+        },
+        {
+            title: "Chatbot Personalizado",
+            description: "Desarrollo de un chatbot inteligente para gestionar consultas frecuentes y optimizar la atención al cliente.",
+            image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=800",
+            tags: ["ChatBot", "IA", "Atención al Cliente"],
+            icon: MessageSquare,
+            results: [
+                "Reducción del 40% en la carga de trabajo del equipo de soporte",
+                "Automatización de más del 50% de las preguntas frecuentes",
+                "Mejora del 15% en la retención de clientes"
+            ]
+        }
+    ];
+    const handleCtaClick = () => {
+        trackEvent('CTA', 'Click', 'Portfolio Success Stories');
+    };
+    return (_jsx("section", { id: "casos-exito", className: "section-padding bg-dark", children: _jsxs("div", { className: "max-w-7xl mx-auto container-padding", children: [_jsxs("div", { className: "text-center mb-16", children: [_jsx("h2", { className: "text-3xl md:text-4xl font-bold mb-4 text-white", children: "Casos de \u00C9xito" }), _jsx("p", { className: "text-xl text-gray-400 max-w-3xl mx-auto", children: "Descubre c\u00F3mo hemos ayudado a empresas a transformar sus operaciones con soluciones tecnol\u00F3gicas innovadoras" })] }), _jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8", children: projects.map((project, index) => (_jsx(ProjectCard, { project: project }, index))) }), _jsx("div", { className: "mt-16 text-center", children: _jsx(Link, { to: "/contact", onClick: handleCtaClick, className: "inline-flex items-center px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-light transition-colors", children: "\u00BFQuieres resultados como estos? Agenda una consulta ahora" }) })] }) }));
+};
+export default Portfolio;
