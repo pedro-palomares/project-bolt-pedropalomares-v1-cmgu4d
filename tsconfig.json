@@ -20,7 +20,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "composite": false,
+    "composite": true,
     "declaration": true,
     "emitDeclarationOnly": false
   },
